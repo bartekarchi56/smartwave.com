@@ -1,0 +1,1452 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SmartWave — Clean, redefined.</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=DM+Serif+Display:ital@0;1&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --navy: #1F4E78;
+    --navy-dark: #163758;
+    --navy-light: #2d6aa3;
+    --cyan: #00B4D8;
+    --cyan-light: #90E0EF;
+    --cyan-pale: #CAF0F8;
+    --white: #FFFFFF;
+    --off-white: #F8FAFC;
+    --light-gray: #EEF2F7;
+    --mid-gray: #94A3B8;
+    --dark-gray: #334155;
+    --text: #1E293B;
+    --border: #E2E8F0;
+    --radius-sm: 6px;
+    --radius: 12px;
+    --radius-lg: 20px;
+    --shadow-sm: 0 1px 3px rgba(31,78,120,0.08);
+    --shadow-md: 0 4px 16px rgba(31,78,120,0.12);
+    --shadow-lg: 0 12px 40px rgba(31,78,120,0.16);
+  }
+
+  html { scroll-behavior: smooth; }
+  body {
+    font-family: 'Inter', sans-serif;
+    font-size: 16px;
+    line-height: 1.6;
+    color: var(--text);
+    background: var(--white);
+    overflow-x: hidden;
+  }
+
+  /* NAV */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    background: rgba(255,255,255,0.95);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--border);
+    padding: 0 2rem;
+    height: 68px;
+    display: flex; align-items: center; justify-content: space-between;
+  }
+  .nav-logo {
+    display: flex; align-items: center; gap: 10px;
+    text-decoration: none;
+  }
+  .nav-logo-mark {
+    width: 38px; height: 38px;
+    background: linear-gradient(135deg, var(--navy) 0%, var(--navy-light) 100%);
+    border-radius: 10px;
+    display: flex; align-items: center; justify-content: center;
+    color: white; font-family: 'DM Serif Display', serif;
+    font-size: 22px; font-weight: 400; line-height: 1;
+  }
+  .nav-logo-text {
+    display: flex; flex-direction: column; line-height: 1.1;
+  }
+  .nav-logo-text span:first-child {
+    font-size: 16px; font-weight: 600; color: var(--navy); letter-spacing: -0.01em;
+  }
+  .nav-logo-text span:last-child {
+    font-size: 10px; font-weight: 400; color: var(--mid-gray); letter-spacing: 0.06em; text-transform: uppercase;
+  }
+  .nav-links {
+    display: flex; align-items: center; gap: 2rem; list-style: none;
+  }
+  .nav-links a {
+    text-decoration: none; color: var(--dark-gray);
+    font-size: 14px; font-weight: 500;
+    transition: color 0.2s;
+  }
+  .nav-links a:hover { color: var(--navy); }
+  .nav-cta {
+    background: var(--navy); color: white;
+    padding: 9px 20px; border-radius: var(--radius-sm);
+    font-size: 14px; font-weight: 500; text-decoration: none;
+    transition: background 0.2s;
+  }
+  .nav-cta:hover { background: var(--navy-dark); }
+
+  /* HERO */
+  .hero {
+    min-height: 100vh;
+    background: var(--navy);
+    display: flex; flex-direction: column; justify-content: center;
+    padding: 120px 2rem 80px;
+    position: relative; overflow: hidden;
+  }
+  .hero::before {
+    content: '';
+    position: absolute; top: 0; left: 0; right: 0; bottom: 0;
+    background: radial-gradient(ellipse 60% 80% at 100% 50%, rgba(0,180,216,0.12) 0%, transparent 70%),
+                radial-gradient(ellipse 40% 60% at 0% 80%, rgba(0,180,216,0.08) 0%, transparent 60%);
+    pointer-events: none;
+  }
+  .hero-inner {
+    max-width: 1140px; margin: 0 auto; width: 100%;
+    display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: center;
+    position: relative; z-index: 1;
+  }
+  .hero-eyebrow {
+    font-size: 11px; font-weight: 500; letter-spacing: 0.12em;
+    text-transform: uppercase; color: var(--cyan);
+    margin-bottom: 1.25rem;
+  }
+  .hero-title {
+    font-family: 'DM Serif Display', serif;
+    font-size: clamp(42px, 5vw, 64px);
+    font-weight: 400; color: var(--white);
+    line-height: 1.08; letter-spacing: -0.02em;
+    margin-bottom: 1.5rem;
+  }
+  .hero-title em {
+    font-style: italic; color: var(--cyan-light);
+  }
+  .hero-sub {
+    font-size: 17px; font-weight: 300; color: rgba(255,255,255,0.72);
+    line-height: 1.65; margin-bottom: 2.5rem; max-width: 440px;
+  }
+  .hero-actions {
+    display: flex; gap: 1rem; align-items: center; flex-wrap: wrap;
+  }
+  .btn-primary {
+    background: var(--cyan); color: var(--navy-dark);
+    padding: 13px 28px; border-radius: var(--radius-sm);
+    font-size: 15px; font-weight: 600; text-decoration: none;
+    transition: all 0.2s; border: none; cursor: pointer; display: inline-block;
+  }
+  .btn-primary:hover { background: var(--cyan-light); transform: translateY(-1px); }
+  .btn-ghost {
+    background: transparent; color: rgba(255,255,255,0.8);
+    padding: 13px 24px; border-radius: var(--radius-sm);
+    font-size: 15px; font-weight: 400; text-decoration: none;
+    border: 1px solid rgba(255,255,255,0.2);
+    transition: all 0.2s; display: inline-block;
+  }
+  .btn-ghost:hover { border-color: rgba(255,255,255,0.5); color: white; }
+  .hero-visual {
+    display: flex; align-items: center; justify-content: center;
+  }
+  .hero-device {
+    width: 380px; height: 420px;
+    position: relative;
+  }
+  .toilet-svg {
+    width: 100%; height: 100%;
+  }
+  .hero-stats {
+    display: flex; gap: 2.5rem; margin-top: 3.5rem;
+  }
+  .hero-stat-val {
+    font-family: 'DM Serif Display', serif;
+    font-size: 32px; font-weight: 400; color: var(--white); line-height: 1;
+  }
+  .hero-stat-label {
+    font-size: 12px; color: rgba(255,255,255,0.5); margin-top: 4px;
+    text-transform: uppercase; letter-spacing: 0.06em;
+  }
+
+  /* WAVE DIVIDER */
+  .wave-divider {
+    width: 100%; overflow: hidden; line-height: 0;
+    background: var(--navy);
+  }
+  .wave-divider svg { display: block; }
+
+  /* TRUST BAR */
+  .trust-bar {
+    background: var(--off-white);
+    padding: 1.5rem 2rem;
+    border-bottom: 1px solid var(--border);
+  }
+  .trust-inner {
+    max-width: 1140px; margin: 0 auto;
+    display: flex; align-items: center; justify-content: center;
+    gap: 3rem; flex-wrap: wrap;
+  }
+  .trust-item {
+    display: flex; align-items: center; gap: 8px;
+    font-size: 13px; font-weight: 500; color: var(--dark-gray);
+  }
+  .trust-icon {
+    width: 20px; height: 20px; color: var(--cyan);
+    flex-shrink: 0;
+  }
+
+  /* SECTIONS */
+  section { padding: 96px 2rem; }
+  .section-inner { max-width: 1140px; margin: 0 auto; }
+  .section-label {
+    font-size: 11px; font-weight: 600; letter-spacing: 0.12em;
+    text-transform: uppercase; color: var(--cyan);
+    margin-bottom: 0.75rem;
+  }
+  .section-title {
+    font-family: 'DM Serif Display', serif;
+    font-size: clamp(30px, 4vw, 44px);
+    font-weight: 400; color: var(--navy);
+    line-height: 1.15; letter-spacing: -0.02em;
+    margin-bottom: 1rem;
+  }
+  .section-sub {
+    font-size: 17px; font-weight: 300; color: var(--mid-gray);
+    line-height: 1.65; max-width: 560px;
+    margin-bottom: 3.5rem;
+  }
+
+  /* PRODUCTS */
+  #products { background: var(--off-white); }
+  .products-header { margin-bottom: 3rem; }
+  .products-grid {
+    display: grid; grid-template-columns: repeat(3, 1fr);
+    gap: 1.5rem;
+  }
+  .product-card {
+    background: var(--white); border-radius: var(--radius-lg);
+    border: 1px solid var(--border); overflow: hidden;
+    transition: all 0.3s; position: relative;
+    display: flex; flex-direction: column;
+  }
+  .product-card:hover {
+    box-shadow: var(--shadow-lg);
+    transform: translateY(-4px);
+    border-color: rgba(31,78,120,0.2);
+  }
+  .product-card.featured {
+    border-color: var(--navy);
+    border-width: 2px;
+  }
+  .featured-badge {
+    position: absolute; top: 16px; right: 16px;
+    background: var(--navy); color: white;
+    font-size: 11px; font-weight: 600; letter-spacing: 0.06em;
+    text-transform: uppercase; padding: 4px 10px; border-radius: 4px;
+  }
+  .product-image {
+    background: linear-gradient(135deg, #EEF2F7 0%, #E1EDF8 100%);
+    height: 240px;
+    display: flex; align-items: center; justify-content: center;
+    position: relative;
+  }
+  .product-img-svg {
+    width: 160px; height: 200px;
+  }
+  .product-model-tag {
+    position: absolute; bottom: 12px; left: 12px;
+    background: rgba(31,78,120,0.08); color: var(--navy);
+    font-size: 11px; font-weight: 600; padding: 3px 8px; border-radius: 4px;
+    letter-spacing: 0.05em;
+  }
+  .product-body { padding: 1.5rem; flex: 1; display: flex; flex-direction: column; }
+  .product-tier {
+    font-size: 11px; font-weight: 600; text-transform: uppercase;
+    letter-spacing: 0.1em; color: var(--cyan); margin-bottom: 0.5rem;
+  }
+  .product-name {
+    font-family: 'DM Serif Display', serif;
+    font-size: 22px; color: var(--navy); line-height: 1.2;
+    margin-bottom: 0.75rem;
+  }
+  .product-tagline {
+    font-size: 14px; color: var(--mid-gray); margin-bottom: 1.25rem;
+    line-height: 1.5;
+  }
+  .product-features {
+    list-style: none; margin-bottom: 1.5rem; flex: 1;
+  }
+  .product-features li {
+    font-size: 13px; color: var(--dark-gray);
+    padding: 5px 0; border-bottom: 1px solid var(--light-gray);
+    display: flex; align-items: center; gap: 8px;
+  }
+  .product-features li:last-child { border-bottom: none; }
+  .check-icon {
+    width: 16px; height: 16px; flex-shrink: 0;
+    color: var(--cyan);
+  }
+  .product-footer {
+    padding-top: 1.25rem; border-top: 1px solid var(--border);
+    display: flex; align-items: center; justify-content: space-between;
+  }
+  .product-price {
+    display: flex; flex-direction: column;
+  }
+  .price-label { font-size: 11px; color: var(--mid-gray); text-transform: uppercase; letter-spacing: 0.06em; }
+  .price-value {
+    font-family: 'DM Serif Display', serif;
+    font-size: 26px; color: var(--navy); line-height: 1.1;
+  }
+  .price-sub { font-size: 11px; color: var(--mid-gray); }
+  .btn-buy {
+    background: var(--navy); color: white;
+    padding: 10px 20px; border-radius: var(--radius-sm);
+    font-size: 14px; font-weight: 500; text-decoration: none;
+    border: none; cursor: pointer;
+    transition: all 0.2s; display: inline-flex; align-items: center; gap: 6px;
+  }
+  .btn-buy:hover { background: var(--navy-dark); transform: translateY(-1px); }
+  .btn-buy-outline {
+    background: transparent; color: var(--navy);
+    padding: 10px 20px; border-radius: var(--radius-sm);
+    font-size: 14px; font-weight: 500; text-decoration: none;
+    border: 1.5px solid var(--navy); cursor: pointer;
+    transition: all 0.2s; display: inline-flex; align-items: center; gap: 6px;
+  }
+  .btn-buy-outline:hover { background: var(--navy); color: white; }
+
+  /* FEATURE HIGHLIGHT */
+  #feature {
+    background: var(--white);
+    overflow: hidden;
+  }
+  .feature-grid {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 5rem; align-items: center;
+  }
+  .feature-visual {
+    background: linear-gradient(135deg, var(--navy) 0%, var(--navy-light) 100%);
+    border-radius: var(--radius-lg);
+    padding: 3rem; display: flex; align-items: center; justify-content: center;
+    min-height: 400px; position: relative; overflow: hidden;
+  }
+  .feature-visual::before {
+    content: '';
+    position: absolute; top: -40%; right: -20%;
+    width: 300px; height: 300px;
+    background: rgba(0,180,216,0.15);
+    border-radius: 50%;
+  }
+  .feature-icon-big {
+    width: 180px; height: 180px; z-index: 1;
+  }
+  .feature-list { list-style: none; }
+  .feature-item {
+    display: flex; gap: 1rem; padding: 1.25rem 0;
+    border-bottom: 1px solid var(--border);
+  }
+  .feature-item:last-child { border-bottom: none; }
+  .feature-item-icon {
+    width: 44px; height: 44px; flex-shrink: 0;
+    background: var(--light-gray); border-radius: 10px;
+    display: flex; align-items: center; justify-content: center;
+  }
+  .feature-item-icon svg { width: 22px; height: 22px; color: var(--navy); }
+  .feature-item-title {
+    font-size: 15px; font-weight: 600; color: var(--navy); margin-bottom: 3px;
+  }
+  .feature-item-desc {
+    font-size: 13px; color: var(--mid-gray); line-height: 1.5;
+  }
+
+  /* B2B */
+  #b2b { background: var(--navy); }
+  .b2b-inner { display: grid; grid-template-columns: 1fr 1fr; gap: 5rem; align-items: center; }
+  .b2b-title {
+    font-family: 'DM Serif Display', serif;
+    font-size: clamp(30px, 4vw, 44px); font-weight: 400; color: white;
+    line-height: 1.15; letter-spacing: -0.02em; margin-bottom: 1rem;
+  }
+  .b2b-sub {
+    font-size: 17px; font-weight: 300; color: rgba(255,255,255,0.65);
+    line-height: 1.65; margin-bottom: 2rem;
+  }
+  .b2b-sectors {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-bottom: 2.5rem;
+  }
+  .b2b-sector {
+    background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.1);
+    border-radius: var(--radius-sm); padding: 1rem;
+  }
+  .b2b-sector-name {
+    font-size: 14px; font-weight: 500; color: white; margin-top: 0.5rem;
+  }
+  .b2b-sector-desc {
+    font-size: 12px; color: rgba(255,255,255,0.5); margin-top: 2px;
+  }
+  .b2b-sector svg { width: 24px; height: 24px; color: var(--cyan); }
+  .b2b-panel {
+    background: rgba(255,255,255,0.05);
+    border: 1px solid rgba(255,255,255,0.12);
+    border-radius: var(--radius-lg); padding: 2rem;
+  }
+  .b2b-panel-title {
+    font-size: 13px; font-weight: 600; text-transform: uppercase;
+    letter-spacing: 0.08em; color: var(--cyan); margin-bottom: 1.25rem;
+  }
+  .b2b-benefit {
+    display: flex; gap: 1rem; margin-bottom: 1.25rem; align-items: flex-start;
+  }
+  .b2b-benefit:last-child { margin-bottom: 0; }
+  .b2b-benefit-icon {
+    width: 36px; height: 36px; flex-shrink: 0;
+    background: rgba(0,180,216,0.15); border-radius: 8px;
+    display: flex; align-items: center; justify-content: center;
+  }
+  .b2b-benefit-icon svg { width: 18px; height: 18px; color: var(--cyan); }
+  .b2b-benefit-title {
+    font-size: 14px; font-weight: 500; color: white; margin-bottom: 2px;
+  }
+  .b2b-benefit-desc {
+    font-size: 13px; color: rgba(255,255,255,0.5); line-height: 1.45;
+  }
+
+  /* TESTIMONIALS */
+  #testimonials { background: var(--off-white); }
+  .testimonials-grid {
+    display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem;
+    margin-top: 2rem;
+  }
+  .testimonial-card {
+    background: var(--white); border-radius: var(--radius);
+    border: 1px solid var(--border); padding: 1.75rem;
+  }
+  .stars { color: #F59E0B; font-size: 14px; margin-bottom: 1rem; letter-spacing: 2px; }
+  .testimonial-text {
+    font-size: 14px; color: var(--dark-gray); line-height: 1.65;
+    margin-bottom: 1.25rem; font-style: italic;
+  }
+  .testimonial-author {
+    display: flex; align-items: center; gap: 10px;
+  }
+  .author-avatar {
+    width: 36px; height: 36px; border-radius: 50%;
+    background: var(--light-gray); color: var(--navy);
+    font-size: 13px; font-weight: 600;
+    display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0;
+  }
+  .author-name { font-size: 13px; font-weight: 600; color: var(--navy); }
+  .author-role { font-size: 12px; color: var(--mid-gray); }
+
+  /* CONTACT / QUOTE */
+  #contact { background: var(--white); }
+  .contact-grid {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 5rem; align-items: start;
+  }
+  .contact-form {
+    background: var(--off-white); border-radius: var(--radius-lg);
+    border: 1px solid var(--border); padding: 2rem;
+  }
+  .form-title {
+    font-family: 'DM Serif Display', serif;
+    font-size: 22px; color: var(--navy); margin-bottom: 0.5rem;
+  }
+  .form-sub { font-size: 14px; color: var(--mid-gray); margin-bottom: 1.75rem; }
+  .form-group { margin-bottom: 1.25rem; }
+  .form-label {
+    display: block; font-size: 13px; font-weight: 500; color: var(--dark-gray);
+    margin-bottom: 6px;
+  }
+  .form-input, .form-select, .form-textarea {
+    width: 100%; padding: 10px 14px;
+    border: 1px solid var(--border); border-radius: var(--radius-sm);
+    font-family: 'Inter', sans-serif; font-size: 14px;
+    color: var(--text); background: white;
+    transition: border-color 0.2s; outline: none;
+  }
+  .form-input:focus, .form-select:focus, .form-textarea:focus {
+    border-color: var(--navy); box-shadow: 0 0 0 3px rgba(31,78,120,0.08);
+  }
+  .form-textarea { min-height: 100px; resize: vertical; }
+  .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+  .form-submit {
+    width: 100%; background: var(--navy); color: white;
+    padding: 13px; border-radius: var(--radius-sm);
+    font-size: 15px; font-weight: 500; border: none; cursor: pointer;
+    transition: background 0.2s; margin-top: 0.5rem;
+  }
+  .form-submit:hover { background: var(--navy-dark); }
+  .contact-info-block {
+    margin-top: 2rem;
+  }
+  .info-item {
+    display: flex; gap: 1rem; margin-bottom: 1.5rem; align-items: flex-start;
+  }
+  .info-icon {
+    width: 42px; height: 42px; flex-shrink: 0;
+    background: var(--light-gray); border-radius: 10px;
+    display: flex; align-items: center; justify-content: center;
+  }
+  .info-icon svg { width: 20px; height: 20px; color: var(--navy); }
+  .info-title { font-size: 13px; font-weight: 600; color: var(--navy); }
+  .info-value { font-size: 14px; color: var(--mid-gray); }
+
+  /* FOOTER */
+  footer {
+    background: var(--navy-dark); padding: 3rem 2rem 2rem;
+  }
+  .footer-inner {
+    max-width: 1140px; margin: 0 auto;
+  }
+  .footer-top {
+    display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 3rem;
+    padding-bottom: 2.5rem; border-bottom: 1px solid rgba(255,255,255,0.08);
+    margin-bottom: 2rem;
+  }
+  .footer-brand-name {
+    font-family: 'DM Serif Display', serif;
+    font-size: 22px; color: white; margin-bottom: 0.75rem;
+  }
+  .footer-brand-desc {
+    font-size: 13px; color: rgba(255,255,255,0.45); line-height: 1.65; max-width: 280px;
+  }
+  .footer-col-title {
+    font-size: 11px; font-weight: 600; text-transform: uppercase;
+    letter-spacing: 0.1em; color: rgba(255,255,255,0.3); margin-bottom: 1rem;
+  }
+  .footer-links { list-style: none; }
+  .footer-links li { margin-bottom: 0.6rem; }
+  .footer-links a {
+    font-size: 13px; color: rgba(255,255,255,0.5); text-decoration: none;
+    transition: color 0.2s;
+  }
+  .footer-links a:hover { color: white; }
+  .footer-bottom {
+    display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem;
+  }
+  .footer-bottom-left {
+    font-size: 12px; color: rgba(255,255,255,0.3);
+  }
+  .footer-bottom-right {
+    font-size: 12px; color: rgba(255,255,255,0.3);
+    display: flex; gap: 1.5rem;
+  }
+  .footer-bottom-right a {
+    color: rgba(255,255,255,0.3); text-decoration: none; transition: color 0.2s;
+  }
+  .footer-bottom-right a:hover { color: rgba(255,255,255,0.6); }
+
+  /* MODAL */
+  .modal-overlay {
+    display: none; position: fixed; inset: 0; z-index: 200;
+    background: rgba(0,0,0,0.6); backdrop-filter: blur(4px);
+    align-items: center; justify-content: center; padding: 2rem;
+  }
+  .modal-overlay.active { display: flex; }
+  .modal {
+    background: white; border-radius: var(--radius-lg);
+    max-width: 520px; width: 100%; padding: 2.5rem;
+    position: relative; max-height: 90vh; overflow-y: auto;
+  }
+  .modal-close {
+    position: absolute; top: 1.25rem; right: 1.25rem;
+    background: none; border: none; cursor: pointer;
+    color: var(--mid-gray); font-size: 22px; line-height: 1;
+  }
+  .modal-product-tag {
+    font-size: 11px; font-weight: 600; text-transform: uppercase;
+    letter-spacing: 0.1em; color: var(--cyan); margin-bottom: 0.5rem;
+  }
+  .modal-title {
+    font-family: 'DM Serif Display', serif;
+    font-size: 26px; color: var(--navy); margin-bottom: 0.5rem;
+  }
+  .modal-price {
+    font-size: 20px; font-weight: 600; color: var(--navy);
+    margin-bottom: 1.5rem;
+  }
+  .modal-qty {
+    display: flex; align-items: center; gap: 0.75rem; margin-bottom: 1.5rem;
+  }
+  .qty-label { font-size: 13px; font-weight: 500; color: var(--dark-gray); }
+  .qty-controls {
+    display: flex; align-items: center; gap: 0;
+    border: 1px solid var(--border); border-radius: var(--radius-sm); overflow: hidden;
+  }
+  .qty-btn {
+    width: 36px; height: 36px; border: none; background: var(--light-gray);
+    cursor: pointer; font-size: 18px; color: var(--navy);
+    transition: background 0.2s; display: flex; align-items: center; justify-content: center;
+  }
+  .qty-btn:hover { background: var(--border); }
+  .qty-val {
+    width: 48px; text-align: center; font-size: 15px; font-weight: 500;
+    border-left: 1px solid var(--border); border-right: 1px solid var(--border);
+    height: 36px; line-height: 36px;
+  }
+  .modal-confirm-btn {
+    width: 100%; background: var(--navy); color: white;
+    padding: 14px; border-radius: var(--radius-sm);
+    font-size: 15px; font-weight: 500; border: none; cursor: pointer;
+    transition: background 0.2s; margin-bottom: 1rem;
+  }
+  .modal-confirm-btn:hover { background: var(--navy-dark); }
+  .modal-alt-link {
+    display: block; text-align: center; font-size: 13px; color: var(--mid-gray);
+    text-decoration: none;
+  }
+  .modal-alt-link a { color: var(--navy); text-decoration: underline; }
+  .modal-note {
+    font-size: 12px; color: var(--mid-gray); text-align: center;
+    margin-top: 1rem; padding-top: 1rem; border-top: 1px solid var(--border);
+  }
+
+  /* CART TOAST */
+  .toast {
+    position: fixed; bottom: 2rem; right: 2rem; z-index: 300;
+    background: var(--navy); color: white;
+    padding: 14px 20px; border-radius: var(--radius);
+    font-size: 14px; font-weight: 500;
+    box-shadow: var(--shadow-lg);
+    display: flex; align-items: center; gap: 10px;
+    transform: translateY(80px); opacity: 0;
+    transition: all 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
+  }
+  .toast.show { transform: translateY(0); opacity: 1; }
+  .toast svg { width: 18px; height: 18px; color: var(--cyan); flex-shrink: 0; }
+
+  /* RESPONSIVE */
+  @media (max-width: 900px) {
+    .hero-inner, .feature-grid, .b2b-inner, .contact-grid { grid-template-columns: 1fr; gap: 2.5rem; }
+    .products-grid { grid-template-columns: 1fr; max-width: 480px; margin: 0 auto; }
+    .testimonials-grid { grid-template-columns: 1fr; }
+    .hero-visual { display: none; }
+    .footer-top { grid-template-columns: 1fr 1fr; }
+    .hero-stats { gap: 1.5rem; }
+    nav .nav-links { display: none; }
+    .b2b-sectors { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="#" class="nav-logo">
+    <div class="nav-logo-mark">W</div>
+    <div class="nav-logo-text">
+      <span>SmartWave</span>
+      <span>by LAMARE Poland</span>
+    </div>
+  </a>
+  <ul class="nav-links">
+    <li><a href="#products">Products</a></li>
+    <li><a href="#feature">Technology</a></li>
+    <li><a href="#b2b">B2B</a></li>
+    <li><a href="#testimonials">Reviews</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+  <a href="#products" class="nav-cta">Shop now</a>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-inner">
+    <div class="hero-content">
+      <div class="hero-eyebrow">Japanese-grade smart hygiene · Poland</div>
+      <h1 class="hero-title">
+        Clean,<br><em>redefined.</em>
+      </h1>
+      <p class="hero-sub">
+        Premium Japanese-style smart toilets and bidet seats engineered for the modern home and hospitality industry. No waste bin. No compromise.
+      </p>
+      <div class="hero-actions">
+        <a href="#products" class="btn-primary">View all models</a>
+        <a href="#b2b" class="btn-ghost">B2B enquiries</a>
+      </div>
+      <div class="hero-stats">
+        <div>
+          <div class="hero-stat-val">3</div>
+          <div class="hero-stat-label">Models available</div>
+        </div>
+        <div>
+          <div class="hero-stat-val">5★</div>
+          <div class="hero-stat-label">Customer rating</div>
+        </div>
+        <div>
+          <div class="hero-stat-val">EU</div>
+          <div class="hero-stat-label">Shipping covered</div>
+        </div>
+      </div>
+    </div>
+    <div class="hero-visual">
+      <div class="hero-device">
+        <!-- Stylized smart toilet SVG illustration -->
+        <svg class="toilet-svg" viewBox="0 0 380 420" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <!-- Glow circle -->
+          <circle cx="190" cy="210" r="160" fill="rgba(0,180,216,0.06)"/>
+          <!-- Tank -->
+          <rect x="100" y="60" width="180" height="110" rx="16" fill="white" opacity="0.92"/>
+          <rect x="115" y="80" width="150" height="75" rx="10" fill="#EEF2F7"/>
+          <!-- Control panel on tank -->
+          <rect x="135" y="92" width="110" height="50" rx="8" fill="white"/>
+          <circle cx="155" cy="117" r="8" fill="#00B4D8" opacity="0.7"/>
+          <circle cx="175" cy="117" r="8" fill="#1F4E78" opacity="0.4"/>
+          <rect x="193" y="110" width="40" height="6" rx="3" fill="#1F4E78" opacity="0.15"/>
+          <rect x="193" y="120" width="30" height="6" rx="3" fill="#1F4E78" opacity="0.10"/>
+          <rect x="193" y="130" width="35" height="6" rx="3" fill="#1F4E78" opacity="0.08"/>
+          <!-- Seat base -->
+          <ellipse cx="190" cy="198" rx="138" ry="30" fill="white" opacity="0.9"/>
+          <!-- Bowl outer -->
+          <path d="M65 195 Q65 330 190 340 Q315 330 315 195 L295 185 Q295 315 190 325 Q85 315 85 185 Z" fill="white" opacity="0.88"/>
+          <!-- Bowl inner -->
+          <ellipse cx="190" cy="260" rx="85" ry="35" fill="#CAF0F8" opacity="0.35"/>
+          <!-- Seat lid (open) -->
+          <path d="M75 185 Q75 80 190 72 Q305 80 305 185" stroke="white" stroke-width="18" fill="none" stroke-linecap="round" opacity="0.5"/>
+          <!-- LED accent line -->
+          <path d="M80 195 Q80 325 190 335 Q300 325 300 195" stroke="#00B4D8" stroke-width="2" fill="none" opacity="0.35" stroke-dasharray="6 4"/>
+          <!-- Side panel / remote -->
+          <rect x="300" y="200" width="52" height="80" rx="10" fill="white" opacity="0.7"/>
+          <circle cx="326" cy="225" r="8" fill="#00B4D8" opacity="0.6"/>
+          <rect x="313" y="245" width="26" height="4" rx="2" fill="#1F4E78" opacity="0.2"/>
+          <rect x="313" y="254" width="20" height="4" rx="2" fill="#1F4E78" opacity="0.15"/>
+          <rect x="313" y="263" width="23" height="4" rx="2" fill="#1F4E78" opacity="0.1"/>
+          <!-- Floor shadow -->
+          <ellipse cx="190" cy="360" rx="130" ry="20" fill="rgba(31,78,120,0.12)"/>
+          <!-- Water drop accent -->
+          <path d="M338 120 Q343 110 348 120 Q348 128 338 128 Q328 128 328 120 Q333 110 338 120Z" fill="#00B4D8" opacity="0.7"/>
+          <path d="M356 140 Q360 132 364 140 Q364 147 356 147 Q348 147 348 140 Q352 132 356 140Z" fill="#90E0EF" opacity="0.5"/>
+        </svg>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- WAVE -->
+<div class="wave-divider">
+  <svg viewBox="0 0 1440 60" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+    <path d="M0,0 C360,60 1080,0 1440,48 L1440,60 L0,60 Z" fill="#F8FAFC"/>
+  </svg>
+</div>
+
+<!-- TRUST BAR -->
+<div class="trust-bar">
+  <div class="trust-inner">
+    <div class="trust-item">
+      <svg class="trust-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+      </svg>
+      2-year warranty included
+    </div>
+    <div class="trust-item">
+      <svg class="trust-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/>
+      </svg>
+      Ships within 5 business days
+    </div>
+    <div class="trust-item">
+      <svg class="trust-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <path d="M20 7H4a2 2 0 0 0-2 2v10a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2Z"/>
+        <path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/>
+      </svg>
+      Secure payment
+    </div>
+    <div class="trust-item">
+      <svg class="trust-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/>
+        <polyline points="9 22 9 12 15 12 15 22"/>
+      </svg>
+      Installation support
+    </div>
+    <div class="trust-item">
+      <svg class="trust-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/>
+        <circle cx="12" cy="10" r="3"/>
+      </svg>
+      Based in Poland
+    </div>
+  </div>
+</div>
+
+<!-- PRODUCTS -->
+<section id="products">
+  <div class="section-inner">
+    <div class="products-header">
+      <div class="section-label">Product lineup</div>
+      <h2 class="section-title">Choose your level of comfort</h2>
+      <p class="section-sub">Three models, all featuring Japanese-engineered smart hygiene systems. Every unit ships ready to install.</p>
+    </div>
+
+    <div class="products-grid">
+
+      <!-- SW-100 -->
+      <div class="product-card">
+        <div class="product-image">
+          <svg class="product-img-svg" viewBox="0 0 160 200" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <rect x="30" y="15" width="100" height="60" rx="10" fill="white" opacity="0.9"/>
+            <rect x="40" y="25" width="80" height="42" rx="7" fill="#EEF2F7"/>
+            <ellipse cx="80" cy="100" rx="72" ry="18" fill="white" opacity="0.85"/>
+            <path d="M15 98 Q15 170 80 175 Q145 170 145 98 L130 92 Q130 162 80 168 Q30 162 30 92 Z" fill="white" opacity="0.82"/>
+            <ellipse cx="80" cy="138" rx="44" ry="18" fill="#CAF0F8" opacity="0.4"/>
+            <path d="M20 98 Q20 38 80 34 Q140 38 140 98" stroke="white" stroke-width="12" fill="none" stroke-linecap="round" opacity="0.45"/>
+            <circle cx="80" cy="55" r="8" fill="#1F4E78" opacity="0.15"/>
+          </svg>
+          <div class="product-model-tag">SW-100</div>
+        </div>
+        <div class="product-body">
+          <div class="product-tier">Essential</div>
+          <div class="product-name">SmartWave Essential</div>
+          <p class="product-tagline">Everything you need to upgrade your bathroom hygiene, beautifully packaged.</p>
+          <ul class="product-features">
+            <li>
+              <svg class="check-icon" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.5">
+                <polyline points="2 8 6 12 14 4"/>
+              </svg>
+              Warm water bidet wash
+            </li>
+            <li>
+              <svg class="check-icon" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.5">
+                <polyline points="2 8 6 12 14 4"/>
+              </svg>
+              Heated seat
+            </li>
+            <li>
+              <svg class="check-icon" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.5">
+                <polyline points="2 8 6 12 14 4"/>
+              </svg>
+              Warm air dryer
+            </li>
+            <li>
+              <svg class="check-icon" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.5">
+                <polyline points="2 8 6 12 14 4"/>
+              </svg>
+              Remote control included
+            </li>
+            <li>
+              <svg class="check-icon" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.5">
+                <polyline points="2 8 6 12 14 4"/>
+              </svg>
+              Auto deodorizer
+            </li>
+          </ul>
+          <div class="product-footer">
+            <div class="product-price">
+              <span class="price-label">Starting from</span>
+              <span class="price-value">$186</span>
+              <span class="price-sub">excl. VAT / shipping</span>
+            </div>
+            <button class="btn-buy-outline" onclick="openModal('SmartWave Essential','SW-100','$186','Essential')">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                <circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/>
+                <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/>
+              </svg>
+              Order
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- SW-200 FEATURED -->
+      <div class="product-card featured">
+        <div class="featured-badge">Most popular</div>
+        <div class="product-image" style="background: linear-gradient(135deg, #E1EDF8 0%, #CAE4F7 100%);">
+          <svg class="product-img-svg" viewBox="0 0 160 200" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <rect x="25" y="12" width="110" height="65" rx="12" fill="white" opacity="0.95"/>
+            <rect x="35" y="22" width="90" height="48" rx="9" fill="#EEF2F7"/>
+            <rect x="45" y="34" width="32" height="24" rx="6" fill="white"/>
+            <circle cx="55" cy="46" r="5" fill="#00B4D8" opacity="0.7"/>
+            <circle cx="67" cy="46" r="5" fill="#1F4E78" opacity="0.25"/>
+            <ellipse cx="80" cy="102" rx="75" ry="19" fill="white" opacity="0.88"/>
+            <path d="M12 100 Q12 175 80 180 Q148 175 148 100 L133 94 Q133 167 80 172 Q27 167 27 94 Z" fill="white" opacity="0.85"/>
+            <ellipse cx="80" cy="142" rx="46" ry="19" fill="#CAF0F8" opacity="0.45"/>
+            <path d="M16 100 Q16 34 80 30 Q144 34 144 100" stroke="white" stroke-width="14" fill="none" stroke-linecap="round" opacity="0.5"/>
+            <!-- side panel -->
+            <rect x="135" y="105" width="24" height="44" rx="6" fill="white" opacity="0.65"/>
+            <circle cx="147" cy="120" r="4" fill="#00B4D8" opacity="0.6"/>
+            <path d="M140 168 Q148 158 156 168 Q156 176 148 178 Q140 176 140 168Z" fill="#00B4D8" opacity="0.55"/>
+          </svg>
+          <div class="product-model-tag">SW-200</div>
+        </div>
+        <div class="product-body">
+          <div class="product-tier">Comfort</div>
+          <div class="product-name">SmartWave Comfort</div>
+          <p class="product-tagline">The perfect balance: premium features, intuitive controls, and the patented grinding system.</p>
+          <ul class="product-features">
+            <li>
+              <svg class="check-icon" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.5">
+                <polyline points="2 8 6 12 14 4"/>
+              </svg>
+              All Essential features
+            </li>
+            <li>
+              <svg class="check-icon" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.5">
+                <polyline points="2 8 6 12 14 4"/>
+              </svg>
+              Patented magnetic core grinder
+            </li>
+            <li>
+              <svg class="check-icon" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.5">
+                <polyline points="2 8 6 12 14 4"/>
+              </svg>
+              Disposable tissue-free system
+            </li>
+            <li>
+              <svg class="check-icon" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.5">
+                <polyline points="2 8 6 12 14 4"/>
+              </svg>
+              Touch panel + remote
+            </li>
+            <li>
+              <svg class="check-icon" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.5">
+                <polyline points="2 8 6 12 14 4"/>
+              </svg>
+              Smart auto-open / close lid
+            </li>
+          </ul>
+          <div class="product-footer">
+            <div class="product-price">
+              <span class="price-label">Starting from</span>
+              <span class="price-value">$500</span>
+              <span class="price-sub">excl. VAT / shipping</span>
+            </div>
+            <button class="btn-buy" onclick="openModal('SmartWave Comfort','SW-200','$500','Comfort')">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                <circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/>
+                <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/>
+              </svg>
+              Order
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- SW-300 -->
+      <div class="product-card">
+        <div class="product-image" style="background: linear-gradient(135deg, #EEF2F7 0%, #E8F0F8 100%);">
+          <svg class="product-img-svg" viewBox="0 0 160 200" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <rect x="20" y="10" width="120" height="70" rx="14" fill="white" opacity="0.95"/>
+            <rect x="30" y="20" width="100" height="52" rx="10" fill="#EEF2F7"/>
+            <rect x="38" y="30" width="50" height="32" rx="7" fill="white"/>
+            <circle cx="50" cy="46" r="7" fill="#00B4D8" opacity="0.75"/>
+            <circle cx="65" cy="46" r="7" fill="#1F4E78" opacity="0.3"/>
+            <rect x="93" y="36" width="28" height="5" rx="2.5" fill="#1F4E78" opacity="0.18"/>
+            <rect x="93" y="44" width="22" height="5" rx="2.5" fill="#1F4E78" opacity="0.12"/>
+            <rect x="93" y="52" width="25" height="5" rx="2.5" fill="#1F4E78" opacity="0.09"/>
+            <ellipse cx="80" cy="105" rx="78" ry="20" fill="white" opacity="0.9"/>
+            <path d="M9 103 Q9 180 80 185 Q151 180 151 103 L136 97 Q136 170 80 175 Q24 170 24 97 Z" fill="white" opacity="0.87"/>
+            <ellipse cx="80" cy="147" rx="50" ry="21" fill="#CAF0F8" opacity="0.5"/>
+            <path d="M13 103 Q13 32 80 28 Q147 32 147 103" stroke="white" stroke-width="16" fill="none" stroke-linecap="round" opacity="0.5"/>
+            <rect x="136" y="108" width="20" height="52" rx="7" fill="white" opacity="0.65"/>
+            <circle cx="146" cy="120" r="3.5" fill="#00B4D8" opacity="0.7"/>
+            <rect x="140" y="130" width="12" height="3" rx="1.5" fill="#1F4E78" opacity="0.2"/>
+            <rect x="140" y="137" width="9" height="3" rx="1.5" fill="#1F4E78" opacity="0.15"/>
+            <rect x="140" y="144" width="10" height="3" rx="1.5" fill="#1F4E78" opacity="0.1"/>
+            <path d="M144 172 Q149 163 154 172 Q154 179 149 181 Q144 179 144 172Z" fill="#00B4D8" opacity="0.6"/>
+          </svg>
+          <div class="product-model-tag">SW-300</div>
+        </div>
+        <div class="product-body">
+          <div class="product-tier">Pro</div>
+          <div class="product-name">SmartWave Pro</div>
+          <p class="product-tagline">Hotel-grade performance. Engineered for the most demanding residential and commercial environments.</p>
+          <ul class="product-features">
+            <li>
+              <svg class="check-icon" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.5">
+                <polyline points="2 8 6 12 14 4"/>
+              </svg>
+              All Comfort features
+            </li>
+            <li>
+              <svg class="check-icon" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.5">
+                <polyline points="2 8 6 12 14 4"/>
+              </svg>
+              Heavy-duty grinding capacity
+            </li>
+            <li>
+              <svg class="check-icon" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.5">
+                <polyline points="2 8 6 12 14 4"/>
+              </svg>
+              UV-C self-sterilization
+            </li>
+            <li>
+              <svg class="check-icon" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.5">
+                <polyline points="2 8 6 12 14 4"/>
+              </svg>
+              App connectivity
+            </li>
+            <li>
+              <svg class="check-icon" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.5">
+                <polyline points="2 8 6 12 14 4"/>
+              </svg>
+              Multi-user memory profiles
+            </li>
+          </ul>
+          <div class="product-footer">
+            <div class="product-price">
+              <span class="price-label">Starting from</span>
+              <span class="price-value">$400</span>
+              <span class="price-sub">excl. VAT / shipping</span>
+            </div>
+            <button class="btn-buy-outline" onclick="openModal('SmartWave Pro','SW-300','$400','Pro')">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                <circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/>
+                <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/>
+              </svg>
+              Order
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FEATURE HIGHLIGHT -->
+<section id="feature">
+  <div class="section-inner">
+    <div class="feature-grid">
+      <div class="feature-visual">
+        <svg class="feature-icon-big" viewBox="0 0 180 180" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <!-- Grinding mechanism concept -->
+          <circle cx="90" cy="90" r="75" stroke="rgba(255,255,255,0.12)" stroke-width="2"/>
+          <circle cx="90" cy="90" r="55" stroke="rgba(0,180,216,0.3)" stroke-width="1.5" stroke-dasharray="8 5"/>
+          <!-- Central gear -->
+          <circle cx="90" cy="90" r="32" fill="rgba(0,180,216,0.15)" stroke="rgba(0,180,216,0.4)" stroke-width="1.5"/>
+          <circle cx="90" cy="90" r="18" fill="rgba(0,180,216,0.2)"/>
+          <circle cx="90" cy="90" r="8" fill="#00B4D8"/>
+          <!-- Magnetic poles -->
+          <rect x="86" y="45" width="8" height="20" rx="4" fill="#00B4D8" opacity="0.8"/>
+          <rect x="86" y="115" width="8" height="20" rx="4" fill="#00B4D8" opacity="0.8"/>
+          <rect x="45" y="86" width="20" height="8" rx="4" fill="#00B4D8" opacity="0.8"/>
+          <rect x="115" y="86" width="20" height="8" rx="4" fill="#00B4D8" opacity="0.8"/>
+          <!-- Orbit dots -->
+          <circle cx="90" cy="35" r="5" fill="white" opacity="0.6"/>
+          <circle cx="145" cy="90" r="5" fill="white" opacity="0.6"/>
+          <circle cx="90" cy="145" r="5" fill="white" opacity="0.6"/>
+          <circle cx="35" cy="90" r="5" fill="white" opacity="0.6"/>
+          <!-- Label -->
+          <text x="90" y="165" text-anchor="middle" font-family="Inter, sans-serif" font-size="11" fill="rgba(255,255,255,0.45)" letter-spacing="1">MAGNETIC CORE</text>
+        </svg>
+      </div>
+
+      <div>
+        <div class="section-label">Patented technology</div>
+        <h2 class="section-title">The grinding system that changes everything</h2>
+        <p class="section-sub">No waste bin. No sanitary products piling up. Just clean water and an elegant flush.</p>
+
+        <ul class="feature-list">
+          <li class="feature-item">
+            <div class="feature-item-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M12 22a10 10 0 1 0 0-20 10 10 0 0 0 0 20Z"/>
+                <path d="M12 8v4l3 3"/>
+              </svg>
+            </div>
+            <div>
+              <div class="feature-item-title">Magnetic core grinding</div>
+              <div class="feature-item-desc">A patented rotating magnetic mechanism grinds tissue and sanitary products into fine particles that flush away completely.</div>
+            </div>
+          </li>
+          <li class="feature-item">
+            <div class="feature-item-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/>
+                <polyline points="9 22 9 12 15 12 15 22"/>
+              </svg>
+            </div>
+            <div>
+              <div class="feature-item-title">No waste bin required</div>
+              <div class="feature-item-desc">Ideal for hotels, spas, and offices where hygiene standards and visual cleanliness are paramount.</div>
+            </div>
+          </li>
+          <li class="feature-item">
+            <div class="feature-item-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/>
+              </svg>
+            </div>
+            <div>
+              <div class="feature-item-title">Continuous operation</div>
+              <div class="feature-item-desc">Designed for high-volume use without clogging, maintenance-free under normal operating conditions.</div>
+            </div>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- B2B -->
+<section id="b2b">
+  <div class="section-inner b2b-inner">
+    <div>
+      <div class="section-label" style="color: var(--cyan);">B2B solutions</div>
+      <h2 class="b2b-title">The smart choice for hospitality and business</h2>
+      <p class="b2b-sub">From boutique hotels to corporate office blocks, SmartWave products raise the standard of every restroom — and the impression your space makes.</p>
+
+      <div class="b2b-sectors">
+        <div class="b2b-sector">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/>
+          </svg>
+          <div class="b2b-sector-name">Hotels</div>
+          <div class="b2b-sector-desc">Guest satisfaction elevated</div>
+        </div>
+        <div class="b2b-sector">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+          </svg>
+          <div class="b2b-sector-name">Spas</div>
+          <div class="b2b-sector-desc">Total hygiene experience</div>
+        </div>
+        <div class="b2b-sector">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <rect x="2" y="3" width="20" height="14" rx="2"/>
+            <line x1="8" y1="21" x2="16" y2="21"/>
+            <line x1="12" y1="17" x2="12" y2="21"/>
+          </svg>
+          <div class="b2b-sector-name">Offices</div>
+          <div class="b2b-sector-desc">Premium workplace hygiene</div>
+        </div>
+        <div class="b2b-sector">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/>
+            <path d="M23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/>
+          </svg>
+          <div class="b2b-sector-name">Restaurants</div>
+          <div class="b2b-sector-desc">Five-star restroom standard</div>
+        </div>
+      </div>
+
+      <a href="#contact" class="btn-primary">Request a B2B quote</a>
+    </div>
+
+    <div class="b2b-panel">
+      <div class="b2b-panel-title">B2B package benefits</div>
+
+      <div class="b2b-benefit">
+        <div class="b2b-benefit-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/>
+          </svg>
+        </div>
+        <div>
+          <div class="b2b-benefit-title">Volume pricing</div>
+          <div class="b2b-benefit-desc">Tiered pricing from 5 units. Significant discounts available for larger orders of 20+ units.</div>
+        </div>
+      </div>
+
+      <div class="b2b-benefit">
+        <div class="b2b-benefit-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/>
+          </svg>
+        </div>
+        <div>
+          <div class="b2b-benefit-title">Priority delivery</div>
+          <div class="b2b-benefit-desc">Coordinated shipping to your site. We handle logistics for multi-unit orders across Poland and EU.</div>
+        </div>
+      </div>
+
+      <div class="b2b-benefit">
+        <div class="b2b-benefit-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/>
+          </svg>
+        </div>
+        <div>
+          <div class="b2b-benefit-title">Installation & maintenance</div>
+          <div class="b2b-benefit-desc">On-site installation guidance and ongoing service plans tailored to hospitality environments.</div>
+        </div>
+      </div>
+
+      <div class="b2b-benefit">
+        <div class="b2b-benefit-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.61 3.4 2 2 0 0 1 3.6 1.21h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 8.3a16 16 0 0 0 5.38 5.38l.96-.96a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 21 16"/>
+          </svg>
+        </div>
+        <div>
+          <div class="b2b-benefit-title">Dedicated account manager</div>
+          <div class="b2b-benefit-desc">One point of contact for quotes, ordering, delivery updates, and after-sales support.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TESTIMONIALS -->
+<section id="testimonials">
+  <div class="section-inner">
+    <div style="max-width:560px;">
+      <div class="section-label">Customer reviews</div>
+      <h2 class="section-title">What our customers say</h2>
+    </div>
+    <div class="testimonials-grid">
+      <div class="testimonial-card">
+        <div class="stars">★★★★★</div>
+        <p class="testimonial-text">"We installed three SW-200 units in our boutique hotel bathrooms. Guests notice immediately — it's become one of the things they mention in reviews. No more bins, no more mess."</p>
+        <div class="testimonial-author">
+          <div class="author-avatar">MK</div>
+          <div>
+            <div class="author-name">Marek Kowalski</div>
+            <div class="author-role">Hotel owner, Krakow</div>
+          </div>
+        </div>
+      </div>
+      <div class="testimonial-card">
+        <div class="stars">★★★★★</div>
+        <p class="testimonial-text">"The installation was straightforward and the heated seat alone was worth it. The warm water wash is something you can't go back from. Highly recommend the Pro model."</p>
+        <div class="testimonial-author">
+          <div class="author-avatar">AS</div>
+          <div>
+            <div class="author-name">Anna Szczepańska</div>
+            <div class="author-role">Homeowner, Warsaw</div>
+          </div>
+        </div>
+      </div>
+      <div class="testimonial-card">
+        <div class="stars">★★★★★</div>
+        <p class="testimonial-text">"Our wellness spa needed a hygiene upgrade without compromising the luxury atmosphere. SmartWave delivered exactly that. The grinding feature is a game-changer for us."</p>
+        <div class="testimonial-author">
+          <div class="author-avatar">PW</div>
+          <div>
+            <div class="author-name">Piotr Wierzbicki</div>
+            <div class="author-role">Spa director, Gdańsk</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="section-inner">
+    <div class="contact-grid">
+      <div>
+        <div class="section-label">Get in touch</div>
+        <h2 class="section-title">Ready to upgrade your space?</h2>
+        <p class="section-sub">Whether you're fitting out one bathroom or fifty, our team is here to help you choose the right model and arrange delivery.</p>
+
+        <div class="contact-info-block">
+          <div class="info-item">
+            <div class="info-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
+                <polyline points="22,6 12,13 2,6"/>
+              </svg>
+            </div>
+            <div>
+              <div class="info-title">Email</div>
+              <div class="info-value">hello@smartwave.pl</div>
+            </div>
+          </div>
+          <div class="info-item">
+            <div class="info-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/>
+                <circle cx="12" cy="10" r="3"/>
+              </svg>
+            </div>
+            <div>
+              <div class="info-title">Location</div>
+              <div class="info-value">LAMARE Poland sp. z o.o., Poland</div>
+            </div>
+          </div>
+          <div class="info-item">
+            <div class="info-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.61 3.4 2 2 0 0 1 3.6 1.21h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 8.3a16 16 0 0 0 5.38 5.38l.96-.96a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 21 16"/>
+              </svg>
+            </div>
+            <div>
+              <div class="info-title">Response time</div>
+              <div class="info-value">Within 24 hours on business days</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="contact-form">
+        <div class="form-title">Send an enquiry</div>
+        <p class="form-sub">For B2B quotes, please mention quantity and intended use.</p>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label class="form-label">First name</label>
+            <input type="text" class="form-input" placeholder="Jan">
+          </div>
+          <div class="form-group">
+            <label class="form-label">Last name</label>
+            <input type="text" class="form-input" placeholder="Kowalski">
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Email address</label>
+          <input type="email" class="form-input" placeholder="jan@example.com">
+        </div>
+        <div class="form-group">
+          <label class="form-label">Enquiry type</label>
+          <select class="form-select">
+            <option value="">Select one...</option>
+            <option>Private purchase (B2C)</option>
+            <option>Business / bulk order (B2B)</option>
+            <option>Technical question</option>
+            <option>Warranty or service</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Product of interest</label>
+          <select class="form-select">
+            <option value="">Select model...</option>
+            <option>SW-100 Essential ($186)</option>
+            <option>SW-200 Comfort ($500)</option>
+            <option>SW-300 Pro ($400)</option>
+            <option>Not sure yet</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Message</label>
+          <textarea class="form-textarea" placeholder="Tell us a bit about your project or question..."></textarea>
+        </div>
+        <button class="form-submit" onclick="handleFormSubmit(event)">Send enquiry</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-inner">
+    <div class="footer-top">
+      <div>
+        <div class="footer-brand-name">SmartWave</div>
+        <p class="footer-brand-desc">Japanese-grade smart hygiene products distributed by LAMARE Poland. Clean, redefined. Czystość na nowo.</p>
+      </div>
+      <div>
+        <div class="footer-col-title">Products</div>
+        <ul class="footer-links">
+          <li><a href="#products">SW-100 Essential</a></li>
+          <li><a href="#products">SW-200 Comfort</a></li>
+          <li><a href="#products">SW-300 Pro</a></li>
+          <li><a href="#b2b">B2B solutions</a></li>
+        </ul>
+      </div>
+      <div>
+        <div class="footer-col-title">Company</div>
+        <ul class="footer-links">
+          <li><a href="#feature">Technology</a></li>
+          <li><a href="#testimonials">Reviews</a></li>
+          <li><a href="#contact">Contact</a></li>
+          <li><a href="#">Instagram</a></li>
+        </ul>
+      </div>
+      <div>
+        <div class="footer-col-title">Support</div>
+        <ul class="footer-links">
+          <li><a href="#">Installation guide</a></li>
+          <li><a href="#">Warranty info</a></li>
+          <li><a href="#">Shipping & delivery</a></li>
+          <li><a href="#">FAQ</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <div class="footer-bottom-left">© 2025 LAMARE Poland sp. z o.o. All rights reserved.</div>
+      <div class="footer-bottom-right">
+        <a href="#">Privacy policy</a>
+        <a href="#">Terms of sale</a>
+        <a href="#">Cookie policy</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<!-- ORDER MODAL -->
+<div class="modal-overlay" id="orderModal" onclick="if(event.target===this)closeModal()">
+  <div class="modal">
+    <button class="modal-close" onclick="closeModal()">×</button>
+    <div class="modal-product-tag" id="modal-tier"></div>
+    <div class="modal-title" id="modal-name"></div>
+    <div class="modal-price" id="modal-price"></div>
+
+    <div class="modal-qty">
+      <span class="qty-label">Quantity</span>
+      <div class="qty-controls">
+        <button class="qty-btn" onclick="changeQty(-1)">−</button>
+        <div class="qty-val" id="qty-display">1</div>
+        <button class="qty-btn" onclick="changeQty(1)">+</button>
+      </div>
+    </div>
+
+    <button class="modal-confirm-btn" onclick="confirmOrder()">Confirm order enquiry</button>
+    <p class="modal-alt-link">Prefer a quote first? <a href="#contact" onclick="closeModal()">Contact us here</a></p>
+    <p class="modal-note">Prices shown in USD, excl. VAT and shipping. Our team will confirm final pricing and delivery details for your region within 24 hours.</p>
+  </div>
+</div>
+
+<!-- TOAST -->
+<div class="toast" id="toast">
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+    <polyline points="20 6 9 17 4 12"/>
+  </svg>
+  <span id="toast-text">Enquiry sent successfully!</span>
+</div>
+
+<script>
+  let qty = 1;
+  let currentProduct = {};
+
+  function openModal(name, code, price, tier) {
+    currentProduct = { name, code, price, tier };
+    qty = 1;
+    document.getElementById('modal-name').textContent = name;
+    document.getElementById('modal-price').textContent = price + ' USD';
+    document.getElementById('modal-tier').textContent = 'SmartWave ' + tier + ' · ' + code;
+    document.getElementById('qty-display').textContent = '1';
+    document.getElementById('orderModal').classList.add('active');
+    document.body.style.overflow = 'hidden';
+  }
+
+  function closeModal() {
+    document.getElementById('orderModal').classList.remove('active');
+    document.body.style.overflow = '';
+  }
+
+  function changeQty(delta) {
+    qty = Math.max(1, Math.min(99, qty + delta));
+    document.getElementById('qty-display').textContent = qty;
+  }
+
+  function confirmOrder() {
+    closeModal();
+    showToast('Order enquiry for ' + qty + 'x ' + currentProduct.code + ' received!');
+  }
+
+  function handleFormSubmit(e) {
+    e.preventDefault();
+    showToast('Enquiry sent! We\'ll be in touch within 24 hours.');
+  }
+
+  function showToast(msg) {
+    const toast = document.getElementById('toast');
+    document.getElementById('toast-text').textContent = msg;
+    toast.classList.add('show');
+    setTimeout(() => toast.classList.remove('show'), 4000);
+  }
+
+  // Smooth scroll for nav links
+  document.querySelectorAll('a[href^="#"]').forEach(a => {
+    a.addEventListener('click', e => {
+      const target = document.querySelector(a.getAttribute('href'));
+      if (target) {
+        e.preventDefault();
+        target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
+    });
+  });
+</script>
+</body>
+</html>
